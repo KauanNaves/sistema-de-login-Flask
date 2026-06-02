@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{{ url_for('static', filename='static/styles.css') }}">
+    <title>Login</title>
+</head>
+<body>
+    <section id="text-container">
+        <h1>Login</h1>
+        <p>Preencha o formulário com suas credenciais. Se ainda não possuir um cadastro, <a href="/templates/register.html" target="_self">registre-se</a>.</p>
+    </section>
+    <section id="form-container">   
+        <h2>Realize seu login</h2>
+        <form action="/login" method="post">
+            <label for="emailUser">Email</label>
+            <input type="email" name="emailUser" id="email-user" autocomplete="email" required>
+            <label for="passwordUser">Senha</label>
+            <input type="password" name="passwordUser" id="password-user" autocomplete="current-password" required>
+            <button type="submit">Login</button>
+        </form>
+    </section>
+</body>
+</html>
