@@ -2,11 +2,11 @@ import os
 from dotenv import load_dotenv
 
 from flask import Flask, render_template, redirect, request, session, g, flash
-from werkzeug.security import check_password_hash
+from werkzeug.security import check_password_hash, generate_password_hash
 from auth import login_required
 
 
-from database.database import USERS
+from database.database import USERS, ID
 
 app = Flask(__name__)
 
@@ -32,7 +32,7 @@ def load_logged_in_user():
 def login():
     if request.method == "POST":
         user = None
-        emailUser = request.form.get("emailUser").strip()
+        emailUser = request.form.get("emailUser")
         passwordUser = request.form.get("passwordUser")
         for user_ in USERS:
             if user_['email'] == emailUser:
@@ -49,10 +49,32 @@ def login():
     return render_template("login.html")
 
 
-@app.route("/cadastro", methods=["GET", "POST"])
+@app.route("/register", methods=["GET", "POST"])
 def register():
     if request.method == "POST":
-        return "Cadastro realizado"
+        user = None
+        nameUser = request.form.get("nameUser")
+        emailUser = request.form.get("emailUser")
+        passwordUser = request.form.get("passwordUser")
+        confirmPasswordUser = request.form.get("confirmPasswordUser")
+
+        if not passwordUser == confirmPasswordUser:
+            flash("Digite as duas senhas iguais.")
+            return redirect("/register")
+        
+        for user_ in USERS:
+            if user_['email'] == emailUser:
+                flash("Este email já está cadastrado, faça login.")
+                return redirect("/login")
+        USERS.append({
+            "id": ID + 1,
+            "name": nameUser.upper(),
+            "email": emailUser,
+            "password": generate_password_hash(passwordUser)
+        })
+
+        flash("Cadastro realizado! Realize seu login!")
+        return redirect('/login')
     
     return render_template("register.html")
 
@@ -67,4 +89,8 @@ def logout():
 @app.route("/")
 @login_required
 def index():
-    return render_template('index.html', email=g.user['email'])
+    user = {
+        "name": g.user['name'],
+        "email": g.user['email']
+    }
+    return render_template('index.html', user=user)
