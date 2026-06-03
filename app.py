@@ -11,10 +11,12 @@ from database.database import USERS, ID
 app = Flask(__name__)
 
 # Variáveis de ambiente
-load_dotenv()
+load_dotenv() 
 secretKey = os.environ.get("SECRET_KEY")
 app.secret_key = secretKey
 
+
+# Função será executada antes de renderizar as views
 @app.before_request
 def load_logged_in_user():
     user_id = session.get("user_id")
@@ -28,6 +30,7 @@ def load_logged_in_user():
                 g.user = user
 
 
+# Rotas
 @app.route("/login", methods=["GET", "POST"])
 def login():
     if request.method == "POST":
@@ -83,7 +86,6 @@ def register():
 def logout():
     session.clear()
     return redirect('/')
-
 
 
 @app.route("/")
