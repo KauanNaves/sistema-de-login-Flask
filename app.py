@@ -58,7 +58,14 @@ def register():
     return render_template("register.html")
 
 
+@app.route("/logout")
+def logout():
+    session.clear()
+    return redirect('/')
+
+
+
 @app.route("/")
 @login_required
 def index():
-    return "Rota protegida, acesso somente com login."
+    return render_template('index.html', email=g.user['email'])

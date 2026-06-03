@@ -1,0 +1,17 @@
+{% extends "layout.html" %}
+
+{% block main %}
+    <section>
+        <h1>Seja Bem-vindo ao Sistema de Login em Flask</h1>
+        <p>Está é uma rota protegida, se você conseguiu acessá-la, precisou anteriormente criar ou acessar um usuário. Este sistema de login é amplamente utilizado em sistemas onde cada usuário deve ter seus próprios dados, assim permitimos que cada usuário veja somente os dados que pertencem a ele.</p>
+
+        <h2>Seus dados:</h2>
+        <p>Email: {{ email }}</p>
+        <p>Senha: -Por segurança, nunca salvamos sua senha, somente um Hash aleatório e complexo para que o sistema fique o mais seguro possível.</p>
+
+        <h2>Obrigado por acessar!</h2>
+        <p>Cansou? <a target="_blank" href="/logout">Sair</a>.</p>
+    </section>
+
+
+{% endblock %}
