@@ -1,12 +1,6 @@
-<!DOCTYPE html>
-<html lang="pt-br">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{{ url_for('static', filename='static/styles.css') }}">
-    <title>Registre-se</title>
-</head>
-<body>
+{% extends "layout.html" %}
+ 
+{% block main %}
     <section id="text-container">
         <h1>Cadastro</h1>
         <p>Preencha o formulário com suas credenciais e faça seu cadastro. Se você já possui um cadastro, realize seu <a href="/login" target="_self">login</a>.</p>
@@ -25,5 +19,4 @@
             <button type="submit">Login</button>
         </form>
     </section>
-</body>
-</html>
+{% endblock %}
