@@ -13,7 +13,6 @@ app = Flask(__name__)
 # Variáveis de ambiente
 load_dotenv()
 secretKey = os.environ.get("SECRET_KEY")
-
 app.secret_key = secretKey
 
 @app.before_request

@@ -1,2 +1,2 @@
-python-dotenv
-Flask
+python-dotenv==1.2.2
+Flask==3.1.3
