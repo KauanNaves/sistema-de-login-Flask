@@ -8,7 +8,6 @@ from auth import login_required
 from database.db import createUser, deleteUser, getUserById, createTable, getUserByEmail
 
 app = Flask(__name__)
-createTable()
 
 # Variáveis de ambiente
 load_dotenv() 
