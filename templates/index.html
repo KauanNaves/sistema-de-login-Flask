@@ -11,6 +11,11 @@
         <p>Senha: -Por segurança, nunca salvamos sua senha, somente um Hash aleatório e complexo para que o sistema fique o mais seguro possível.-</p>
 
         <h2>Obrigado por acessar!</h2>
-        <p>Cansou? <a target="_blank" href="/logout">Sair</a>.</p>
+        <p>Cansou? <a target="_self" href="/logout">Sair</a>.</p>
+    
+        <form action="/delete" method="post">
+            <h2>Se deseja excluir sua conta e apagar permanentemente seus dados:</h2>
+            <button type="submit">Clique Aqui!</button>
+        </form>
     </section>
 {% endblock %}

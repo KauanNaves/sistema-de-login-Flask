@@ -5,10 +5,10 @@ from flask import Flask, render_template, redirect, request, session, g, flash
 from werkzeug.security import check_password_hash, generate_password_hash
 from auth import login_required
 
-
-from database.database import USERS, ID
+from database.db import createUser, deleteUser, getUserById, createTable, getUserByEmail
 
 app = Flask(__name__)
+createTable()
 
 # Variáveis de ambiente
 load_dotenv() 
@@ -25,9 +25,7 @@ def load_logged_in_user():
         g.user = None
     else:
         #Busca o usuário no banco de dados
-        for user in USERS:
-            if user['id'] == user_id:
-                g.user = user
+        g.user = getUserById(user_id)
 
 
 # Rotas
@@ -37,10 +35,7 @@ def login():
         user = None
         emailUser = request.form.get("emailUser")
         passwordUser = request.form.get("passwordUser")
-        for user_ in USERS:
-            if user_['email'] == emailUser:
-                user = user_
-                break
+        user = getUserByEmail(emailUser)
         if user is None or not check_password_hash(user["password"], passwordUser):
             flash('Email ou senha incorretos.')
             return redirect('/login')
@@ -65,18 +60,15 @@ def register():
             flash("Digite as duas senhas iguais.")
             return redirect("/register")
         
-        for user_ in USERS:
-            if user_['email'] == emailUser:
+        user = getUserByEmail(emailUser)
+        if user is not None:
                 flash("Este email já está cadastrado, faça login.")
                 return redirect("/login")
-        USERS.append({
-            "id": ID + 1,
-            "name": nameUser.upper(),
-            "email": emailUser,
-            "password": generate_password_hash(passwordUser)
-        })
-
-        flash("Cadastro realizado! Realize seu login!")
+        if createUser(nameUser, emailUser, generate_password_hash(passwordUser)):
+            flash("Cadastro realizado! Realize seu login!")        
+        else:
+            flash("Ocorreu um erro ao tentar criar seu usuário!")
+        
         return redirect('/login')
     
     return render_template("register.html")
@@ -96,3 +88,14 @@ def index():
         "email": g.user['email']
     }
     return render_template('index.html', user=user)
+
+
+@app.route("/delete", methods=["GET", "POST"])
+@login_required
+def delete():
+    if request.method == "POST":
+        deleteUser(g.user['id'], g.user['email'])
+        flash("Seu usário e suas informações foram deletadas do nosso Banco de Dados!")
+        logout()
+        return redirect('/')
+
