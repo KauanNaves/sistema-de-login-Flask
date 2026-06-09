@@ -1,6 +1,3 @@
-import os
-from dotenv import load_dotenv
-
 from flask import Flask, render_template, redirect, request, session, g, flash
 from werkzeug.security import check_password_hash, generate_password_hash
 from auth import login_required
@@ -10,9 +7,7 @@ from database.db import createUser, deleteUser, getUserById, createTable, getUse
 app = Flask(__name__)
 
 # Variáveis de ambiente
-load_dotenv() 
-secretKey = os.environ.get("SECRET_KEY")
-app.secret_key = secretKey
+app.secret_key = 'SUA_CHAVE_SECRETA'
 
 
 # Função será executada antes de renderizar as views
