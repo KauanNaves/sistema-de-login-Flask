@@ -5,7 +5,7 @@ Sistema de controle de acesso desenvolvido em Python, usando o framework Flask, 
 
 ## Como Executar Localmente (Local Setup)
 
-### Pré-requisitos (*Prerequisites*)
+### Pré-requisitos (*Pre-requisites*)
 * Python 3.14.4 instalado.
 
 ### Instalação e Execução (*Installation & Run*)
@@ -15,7 +15,7 @@ Sistema de controle de acesso desenvolvido em Python, usando o framework Flask, 
 2. Acesse o diretório do projeto:
     'cd sistema-de-login-Flask'
 
-3. Crie e ative o amviente virtual (*Virtual Environment*)
+3. Crie e ative o ambiente virtual (*Virtual Environment*)
     * Windows: 'python -m venv venv' e 'venv\Scripts\activate'
     * Linux/macOS: 'python3 -m venv venv' e 'source venv/bin/activate'
 
